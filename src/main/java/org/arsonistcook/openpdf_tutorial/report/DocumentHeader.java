@@ -7,8 +7,6 @@ import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.SU
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-import org.arsonistcook.openpdf_tutorial.ResourcesUtils;
-
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Element;

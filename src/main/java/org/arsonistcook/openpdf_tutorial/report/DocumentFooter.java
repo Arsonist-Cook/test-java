@@ -4,8 +4,6 @@ import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.BO
 
 import java.awt.Color;
 
-import org.arsonistcook.openpdf_tutorial.ResourcesUtils;
-
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Element;
 import com.lowagie.text.HeaderFooter;

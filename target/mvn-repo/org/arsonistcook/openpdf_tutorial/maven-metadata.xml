@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.arsonistcook</groupId>
+  <artifactId>openpdf_tutorial</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20230820133428</lastUpdated>
+  </versioning>
+</metadata>

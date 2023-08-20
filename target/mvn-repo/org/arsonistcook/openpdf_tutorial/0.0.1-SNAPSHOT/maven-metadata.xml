@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.arsonistcook</groupId>
+  <artifactId>openpdf_tutorial</artifactId>
+  <versioning>
+    <lastUpdated>20230820133428</lastUpdated>
+    <snapshot>
+      <timestamp>20230820.133428</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.1-20230820.133428-1</value>
+        <updated>20230820133428</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.1-20230820.133428-1</value>
+        <updated>20230820133428</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>jar-with-dependencies</classifier>
+        <extension>jar</extension>
+        <value>0.0.1-20230820.133428-1</value>
+        <updated>20230820133428</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>0.0.1-SNAPSHOT</version>
+</metadata>

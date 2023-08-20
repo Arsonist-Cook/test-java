@@ -31,7 +31,6 @@ allure-report/
 allure-results/
 .metadata/
 ../../frameworkautomacaoweb/.idea/
-target/
 .idea
 .classpath
 .project
