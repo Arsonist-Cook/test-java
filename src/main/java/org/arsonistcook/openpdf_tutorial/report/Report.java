@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.lowagie.text.BadElementException;
-import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
@@ -23,8 +22,10 @@ public class Report {
   private DocumentMetaData metaData;
 
   public void createDocument(Map<String, String> docData) {
-    try (Document document = new Document(PageSize.A4, 30f, 30f, 15f, 20f)) {
-      PdfWriter.getInstance(document, fileStream);
+    try (Document document = new Document(PageSize.A4, 30f, 30f, 20f, 25f)) {
+      PdfWriter writer = PdfWriter.getInstance(document, fileStream);
+      writer.setStrictImageSequence(true);
+
       // cria documento
       // prepara metadata, cabeçalho, rodapé
       generateReportInfo(document);
@@ -34,7 +35,9 @@ public class Report {
       // abre documento
       document.open();
       for (Entry<String, String> entry : docData.entrySet()) {
-        document.add(createStepEvidence(entry.getKey(), Optional.ofNullable(entry.getValue())));
+        document.add(createStepEvidence(entry.getKey()));
+        Optional.ofNullable(entry.getValue())
+                .ifPresent(imgPath -> createStepImage(imgPath).ifPresent(document::add));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -52,28 +55,24 @@ public class Report {
     document.addTitle(metaData.title());
   }
 
-  private Paragraph createStepEvidence(String title, Optional<String> imagePath) {
+  private Optional<Image> createStepImage(String imagePath) {
 
-    Paragraph paragraph = new Paragraph(title, ResourcesUtils.getBaseFontBold(16));
+    Image img = null;
 
-    imagePath.ifPresent(imgPath -> {
-      Image img;
-      try {
-        img = Image.getInstance(imgPath);
+    try {
+      img = Image.getInstance(imagePath);
+      float percentage = Math.min(288f / img.getPlainHeight(), 490 / img.getPlainWidth()) * 100f;
+      img.scalePercent(percentage);
+      img.setAlignment(Image.MIDDLE);
 
-        float percentage = 535f / img.getPlainWidth();
-//        img.scaleToFit(535f, 535f);
-        img.scaleAbsolute(img.getPlainWidth() * percentage, img.getPlainHeight() * percentage);
-        Chunk igg = new Chunk(img, 0, -img.getScaledHeight());
-        paragraph.add(igg);
-        paragraph.setSpacingAfter(img.getScaledHeight());
-        paragraph.add(Chunk.NEWLINE);
+    } catch (BadElementException | IOException e) {
+      e.printStackTrace();
+    }
 
-      } catch (BadElementException | IOException e) {
-        e.printStackTrace();
-      }
-    });
+    return Optional.ofNullable(img);
+  }
 
-    return paragraph;
+  private Paragraph createStepEvidence(String title) {
+    return new Paragraph(title, ResourcesUtils.getBaseFontBold(16));
   }
 }

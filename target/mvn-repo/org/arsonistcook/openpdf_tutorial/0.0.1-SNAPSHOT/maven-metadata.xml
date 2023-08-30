@@ -3,27 +3,27 @@
   <groupId>org.arsonistcook</groupId>
   <artifactId>openpdf_tutorial</artifactId>
   <versioning>
-    <lastUpdated>20230820133428</lastUpdated>
+    <lastUpdated>20230830211207</lastUpdated>
     <snapshot>
-      <timestamp>20230820.133428</timestamp>
+      <timestamp>20230830.211207</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.0.1-20230820.133428-1</value>
-        <updated>20230820133428</updated>
+        <value>0.0.1-20230830.211207-1</value>
+        <updated>20230830211207</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.0.1-20230820.133428-1</value>
-        <updated>20230820133428</updated>
+        <value>0.0.1-20230830.211207-1</value>
+        <updated>20230830211207</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>jar-with-dependencies</classifier>
         <extension>jar</extension>
-        <value>0.0.1-20230820.133428-1</value>
-        <updated>20230820133428</updated>
+        <value>0.0.1-20230830.211207-1</value>
+        <updated>20230830211207</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

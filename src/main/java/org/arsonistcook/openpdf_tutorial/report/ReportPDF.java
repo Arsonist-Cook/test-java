@@ -13,7 +13,7 @@ public class ReportPDF {
   private FileOutputStream fileOutput;
   Config docConfig;
 
-  public ReportPDF(FileOutputStream fileOutput) {
+  public ReportPDF (FileOutputStream fileOutput) {
     reportData = new LinkedHashMap<>();
     Config defaultConfig = ConfigFactory.parseResources("reportConfigDefault.json");
     docConfig = ConfigFactory.parseResources("reportConfig.json")

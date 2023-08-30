@@ -116,27 +116,27 @@ public class DocumentHeader {
 
     // configuração do container da tabela com linha nova após.
     Paragraph head = new Paragraph();
+    head.setLeading(1);
     head.add(table);
     head.add(Chunk.NEWLINE);
 
     // criação e configuração do header
     HeaderFooter header = new HeaderFooter(head, false);
     header.setBorderColor(BORDER_COLOR);
-    header.setBorderWidthTop(1.0f);
     header.setBorder(0);
     return header;
   }
 
   private Phrase generateSuccessMessage() {
     Phrase successMessage = new Phrase();
-    successMessage.add(new Chunk(successIcon, 0, -successIcon.getScaledHeight()/8));
+    successMessage.add(new Chunk(successIcon, 0, -successIcon.getScaledHeight() / 8));
     successMessage.add(new Phrase(" SUCESSO", successFont));
     return successMessage;
   }
 
   private Phrase generateErrorMessage() {
     Phrase errorMessage = new Phrase();
-    errorMessage.add(new Chunk(errorIcon, 0, -errorIcon.getScaledHeight()/8));
+    errorMessage.add(new Chunk(errorIcon, 0, -errorIcon.getScaledHeight() / 8));
     errorMessage.add(new Phrase(" ERRO", errorFont));
     return errorMessage;
   }

@@ -36,3 +36,4 @@ allure-results/
 .project
 .settings/
 test-output/
+/target/
