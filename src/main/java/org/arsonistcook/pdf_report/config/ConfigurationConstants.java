@@ -1,4 +1,4 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report.config;
 
 import java.awt.Color;
 

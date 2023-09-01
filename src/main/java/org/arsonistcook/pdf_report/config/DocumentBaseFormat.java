@@ -1,6 +1,6 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report.config;
 
-import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.*;
+import static org.arsonistcook.pdf_report.config.ConfigurationConstants.*;
 
 import java.awt.Color;
 import java.io.BufferedInputStream;
@@ -13,43 +13,41 @@ import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 
-public class ResourcesUtils {
-  private static boolean fontsLoaded = false;
+public class DocumentBaseFormat {
+  private boolean fontsLoaded = false;
 
-  public static Image loadImageResource(String fileName) throws BadElementException, IOException {
-    InputStream inputStream = ResourcesUtils.class.getClassLoader()
-                                                  .getResourceAsStream(PICTURES_RESOURCE_PATH.concat(fileName));
+  public Image loadImageResource(String fileName) throws BadElementException, IOException {
+    InputStream inputStream = getClass().getClassLoader()
+                                        .getResourceAsStream(PICTURES_RESOURCE_PATH.concat(fileName));
     BufferedInputStream inputReader = new BufferedInputStream(inputStream);
 
     return Image.getInstance(inputReader.readAllBytes());
-//  return Image.getInstance(Path.of(PICTURES_RESOURCE_PATH, fileName)
-//  .toString());
   }
 
-  public static Font getBaseFont(int size) {
+  public Font getBaseFont(int size) {
     loadDocumentBaseFont();
     return FontFactory.getFont(BASE_FONT_NAME, size);
   }
 
-  public static Font getBaseFontBold(int size) {
+  public Font getBaseFontBold(int size) {
     Font font = getBaseFont(size);
     font.setStyle(Font.BOLD);
     return font;
   }
 
-  public static Font getBaseFontColored(int size, Color color) {
+  public Font getBaseFontColored(int size, Color color) {
     Font font = getBaseFont(size);
     font.setColor(color);
     return font;
   }
 
-  public static Font getBaseFontBoldColored(int size, Color color) {
+  public Font getBaseFontBoldColored(int size, Color color) {
     Font font = getBaseFontBold(size);
     font.setColor(color);
     return font;
   }
 
-  public static void loadDocumentBaseFont() {
+  public void loadDocumentBaseFont() {
     if (!fontsLoaded) {
       FontFactory.register(Path.of(FONT_BASE_PATH, BASE_FONT_FILE_NORMAL)
                                .toString());

@@ -1,24 +1,29 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report;
 
 import java.io.FileOutputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.arsonistcook.pdf_report.config.ReportConfig;
+import org.arsonistcook.pdf_report.document.DocumentMetaData;
+import org.arsonistcook.pdf_report.document.HeaderData;
+
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 
 public class ReportPDF {
   private Map<String, String> reportData;
   private FileOutputStream fileOutput;
-  Config docConfig;
+  ReportConfig docConfig;
 
-  public ReportPDF (FileOutputStream fileOutput) {
+  public ReportPDF(FileOutputStream fileOutput, Config config) {
+    this(fileOutput);
+    this.docConfig = new ReportConfig(config);
+  }
+
+  public ReportPDF(FileOutputStream fileOutput) {
     reportData = new LinkedHashMap<>();
-    Config defaultConfig = ConfigFactory.parseResources("reportConfigDefault.json");
-    docConfig = ConfigFactory.parseResources("reportConfig.json")
-                             .withFallback(defaultConfig)
-                             .resolve();
+    docConfig = new ReportConfig();
     this.fileOutput = fileOutput;
   }
 

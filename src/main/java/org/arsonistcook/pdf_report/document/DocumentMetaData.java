@@ -1,4 +1,4 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report.document;
 
 import lombok.Builder;
 import lombok.Builder.Default;

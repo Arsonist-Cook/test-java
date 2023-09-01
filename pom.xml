@@ -4,10 +4,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.arsonistcook</groupId>
-	<artifactId>openpdf_tutorial</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
-	<name>openpdf_tutorial</name>
-	<description>Create a prototype project with maven commands</description>
+	<artifactId>pdf-report</artifactId>
+	<version>0.0.4-SNAPSHOT</version>
+
+	<name>pdf_report</name>
+	<description>Base dos relatórios em PDF</description>
+	<url>https://github.com/${repository-owner}/${repository-name}.git</url>
+	<scm>
+		<url>https://github.com/${repository-owner}/${repository-name}.git</url>
+		<connection>
+			scm:git:git@github.com:${repository-owner}/${repository-name}.git</connection>
+		<developerConnection>
+			scm:git:git@github.com:${repository-owner}/${repository-name}.git</developerConnection>
+	</scm>
 
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -15,6 +24,25 @@
 		<jdk.version>11</jdk.version>
 		<lombok.version>1.18.26</lombok.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- -->
+		<open.pfd.version>1.3.30</open.pfd.version>
+		<typesafe.conf.version>1.4.2</typesafe.conf.version>
+		<!-- Logging -->
+		<logback.version>1.4.6</logback.version>
+		<slf4j.version>2.0.7</slf4j.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+		<maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
+		<maven.assembly.plugin.version>2.6</maven.assembly.plugin.version>
+		<maven.source.plugin.version>3.1.0</maven.source.plugin.version>
+
+		<github.site.maven.plugin.version>0.12</github.site.maven.plugin.version>
+
+
+		<!-- Proprieties dirstribuition-->
+		<repository-owner>Put-repo-owner</repository-owner>
+		<repository-name>Put-repository-name</repository-name>
+		<branch-name>Put-branch-name</branch-name>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<dependencies>
@@ -22,9 +50,23 @@
 		<dependency>
 			<groupId>com.github.librepdf</groupId>
 			<artifactId>openpdf</artifactId>
-			<version>1.3.30</version>
+			<version>${open.pfd.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -34,13 +76,27 @@
 		<dependency>
 			<groupId>com.typesafe</groupId>
 			<artifactId>config</artifactId>
-			<version>1.4.2</version>
+			<version>${typesafe.conf.version}</version>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>PROJECT-REPO-URL</id>
+			<url>
+				https://github.com/${repository-owner}/${repository-name}/${branch-name}</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
 	<distributionManagement>
 		<repository>
 			<id>internal.repo</id>
-			<name>Github Repo</name>
+			<name>Staging Repository</name>
 			<url>file://${project.build.directory}/mvn-repo</url>
 		</repository>
 	</distributionManagement>
@@ -50,7 +106,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
+				<version>${maven.deploy.plugin.version}</version>
 				<configuration>
 					<altDeploymentRepository>
 						internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
@@ -60,7 +116,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -73,7 +129,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
+				<version>${maven.assembly.plugin.version}</version>
 				<executions>
 					<execution>
 						<id>make-assembly</id>
@@ -94,6 +150,46 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>${github.site.maven.plugin.version}</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<branch>refs/heads/${branch-name}</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<merge>true</merge>
+					<repositoryName>${repository-name}</repositoryName>
+					<repositoryOwner>${repository-owner}</repositoryOwner>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

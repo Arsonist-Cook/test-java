@@ -1,9 +1,16 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.arsonistcook.pdf_report.config.DocumentBaseFormat;
+import org.arsonistcook.pdf_report.document.DocumentFooter;
+import org.arsonistcook.pdf_report.document.DocumentHeader;
+import org.arsonistcook.pdf_report.document.DocumentMetaData;
+import org.arsonistcook.pdf_report.document.HeaderData;
+
 import java.util.Optional;
 
 import com.lowagie.text.BadElementException;
@@ -16,7 +23,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Report {
+public class Report extends DocumentBaseFormat {
   private FileOutputStream fileStream;
   private HeaderData headerData;
   private DocumentMetaData metaData;
@@ -73,6 +80,8 @@ public class Report {
   }
 
   private Paragraph createStepEvidence(String title) {
-    return new Paragraph(title, ResourcesUtils.getBaseFontBold(16));
+    Paragraph paragraph = new Paragraph(title, getBaseFontBold(16));
+    paragraph.setSpacingBefore(25f);
+    return paragraph;
   }
 }

@@ -1,11 +1,13 @@
-package org.arsonistcook.openpdf_tutorial.report;
+package org.arsonistcook.pdf_report.document;
 
-import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.BORDER_COLOR;
-import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.ERROR_COLOR;
-import static org.arsonistcook.openpdf_tutorial.report.ConfigurationConstants.SUCCESS_COLOR;
+import static org.arsonistcook.pdf_report.config.ConfigurationConstants.BORDER_COLOR;
+import static org.arsonistcook.pdf_report.config.ConfigurationConstants.ERROR_COLOR;
+import static org.arsonistcook.pdf_report.config.ConfigurationConstants.SUCCESS_COLOR;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+
+import org.arsonistcook.pdf_report.config.DocumentBaseFormat;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
@@ -18,7 +20,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 
-public class DocumentHeader {
+public class DocumentHeader extends DocumentBaseFormat {
   private static final float[] COLUMN_WIDTH = {15f, 36f, 16f, 16f};
 
   private PdfPTable table;
@@ -35,24 +37,24 @@ public class DocumentHeader {
 
   public DocumentHeader() throws BadElementException, IOException {
     // configura as fontes usadas
-    title = ResourcesUtils.getBaseFontBold(14);
-    label = ResourcesUtils.getBaseFontBold(8);
-    field = ResourcesUtils.getBaseFont(9);
-    successFont = ResourcesUtils.getBaseFontBold(9);
+    title = getBaseFontBold(14);
+    label = getBaseFontBold(8);
+    field = getBaseFont(9);
+    successFont = getBaseFontBold(9);
     successFont.setColor(SUCCESS_COLOR);
-    errorFont = ResourcesUtils.getBaseFontBold(9);
+    errorFont = getBaseFontBold(9);
     errorFont.setColor(ERROR_COLOR);
 
     // Configura as figuras usadas
-    claro = ResourcesUtils.loadImageResource("Claro.png");
+    claro = loadImageResource("Claro.png");
     claro.scaleToFit(25, 25);
-    nttData = ResourcesUtils.loadImageResource("NTTData.png");
+    nttData = loadImageResource("NTTData.png");
     nttData.scaleToFit(60, 20);
-    solar = ResourcesUtils.loadImageResource("Solar.png");
+    solar = loadImageResource("Solar.png");
     solar.scaleToFit(35, 25);
-    successIcon = ResourcesUtils.loadImageResource("success.png");
+    successIcon = loadImageResource("success.png");
     successIcon.scaleToFit(field.getSize(), field.getSize());
-    errorIcon = ResourcesUtils.loadImageResource("error.png");
+    errorIcon = loadImageResource("error.png");
     errorIcon.scaleToFit(field.getSize(), field.getSize());
 
     // Configura a tabela do cabeçalho
