@@ -50,7 +50,7 @@ ReportPDF report = new ReportPDF(new FileOutputStream("report.pdf"), ConfigFacto
 #### Tradicionalmente
 
 ```
-report.gerarReportPDF(ReportBase.prints, ReportBase.texts, extensionContext.getDisplayName(), true);
+report.gerarReportPDF(ReportBase.prints, ReportBase.texts, extensionContext.getDisplayName(), !scenario.isFailed());
 ```
 
 #### Sugestão Formato Novo
