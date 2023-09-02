@@ -9,9 +9,9 @@
 
 	<name>pdf_report</name>
 	<description>Base dos relatórios em PDF</description>
-	<url>https://github.com/${repository-owner}/${repository-name}.git</url>
+	<url>https://github.com/${repository-owner}/${repository-name}</url>
 	<scm>
-		<url>https://github.com/${repository-owner}/${repository-name}.git</url>
+		<url>https://github.com/${repository-owner}/${repository-name}</url>
 		<connection>
 			scm:git:git@github.com:${repository-owner}/${repository-name}.git</connection>
 		<developerConnection>
@@ -39,9 +39,9 @@
 
 
 		<!-- Proprieties dirstribuition-->
-		<repository-owner>Put-repo-owner</repository-owner>
-		<repository-name>Put-repository-name</repository-name>
-		<branch-name>Put-branch-name</branch-name>
+		<repository-owner>Arsonist-Cook</repository-owner>
+		<repository-name>test-java</repository-name>
+		<branch-name>repository</branch-name>
 		<github.global.server>github</github.global.server>
 	</properties>
 
@@ -102,7 +102,6 @@
 	</distributionManagement>
 
 	<build>
-		<finalName>ReportPDFCretor</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
@@ -170,9 +169,10 @@
 				<version>${github.site.maven.plugin.version}</version>
 				<configuration>
 					<message>Maven artifacts for ${project.version}</message>
+					<path>${project.build.directory}/docs/</path>
 					<noJekyll>true</noJekyll>
 					<outputDirectory>${project.build.directory}</outputDirectory>
-					<branch>refs/heads/${branch-name}</branch>
+					
 					<includes>
 						<include>**/*</include>
 					</includes>
