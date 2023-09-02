@@ -12,7 +12,6 @@ import org.arsonistcook.pdf_report.document.HeaderData;
 import com.typesafe.config.Config;
 
 public class ReportPDF {
-  private Map<String, String> reportData;
   private FileOutputStream fileOutput;
   ReportConfig docConfig;
 
@@ -22,15 +21,17 @@ public class ReportPDF {
   }
 
   public ReportPDF(FileOutputStream fileOutput) {
-    reportData = new LinkedHashMap<>();
     docConfig = new ReportConfig();
     this.fileOutput = fileOutput;
   }
 
-  public void gerarReporPDF(List<String> prints, List<String> texts, String nomeTestCase, boolean statusTest) {
+  public void gerarReportPDF(List<String> prints, List<String> texts, String nomeTestCase, boolean statusTest) {
+    gerarReportPDF(prepareDocData(prints, texts), nomeTestCase, statusTest);
+  }
+
+  public void gerarReportPDF(Map<String, String> reportData, String nomeTestCase, boolean statusTest) {
     DocumentMetaData metaData = createMetaData(nomeTestCase);
     HeaderData headerData = createHeader(nomeTestCase, statusTest);
-    prepareDocData(prints, texts);
 
     Report report = new Report(fileOutput, headerData, metaData);
     report.createDocument(reportData);
@@ -45,7 +46,6 @@ public class ReportPDF {
                      .nomeCenario(nomeTestCase)
                      .status(statusTest)
                      .build();
-
   }
 
   private DocumentMetaData createMetaData(String nomeTestCase) {
@@ -53,10 +53,10 @@ public class ReportPDF {
                            .author(docConfig.getString("metadata.author"))
                            .title(nomeTestCase)
                            .build();
-
   }
 
-  private void prepareDocData(List<String> prints, List<String> texts) {
+  private Map<String, String> prepareDocData(List<String> prints, List<String> texts) {
+    Map<String, String> reportData = new LinkedHashMap<>();
     // prepara dados do relatório
     for (int index = 0; index < texts.size(); index++) {
       String print = null;
@@ -64,8 +64,8 @@ public class ReportPDF {
         print = prints.get(index);
       } finally {
         reportData.put(texts.get(index), print);
-
       }
     }
+    return reportData;
   }
 }
