@@ -5,7 +5,7 @@
 <dependency>
 	<groupId>org.arsonistcook</groupId>
 	<artifactId>pdf-report</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.5-SNAPSHOT</version>
 </dependency>
 ```
 
