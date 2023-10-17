@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.arsonistcook</groupId>
+	<artifactId>pdf-report</artifactId>
+	<version>0.0.5-SNAPSHOT</version>
+
+	<name>pdf_report</name>
+	<description>Base dos relatórios em PDF</description>
+	<url>https://github.com/${repository-owner}/${repository-name}</url>
+	<scm>
+		<url>https://github.com/${repository-owner}/${repository-name}</url>
+		<connection>
+			scm:git:git@github.com:${repository-owner}/${repository-name}.git</connection>
+		<developerConnection>
+			scm:git:git@github.com:${repository-owner}/${repository-name}.git</developerConnection>
+	</scm>
+
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<jdk.version>11</jdk.version>
+		<lombok.version>1.18.26</lombok.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- -->
+		<open.pfd.version>1.3.30</open.pfd.version>
+		<typesafe.conf.version>1.4.2</typesafe.conf.version>
+		<!-- Logging -->
+		<logback.version>1.4.6</logback.version>
+		<slf4j.version>2.0.7</slf4j.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+		<maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
+		<maven.assembly.plugin.version>2.6</maven.assembly.plugin.version>
+		<maven.source.plugin.version>3.1.0</maven.source.plugin.version>
+
+		<github.site.maven.plugin.version>0.12</github.site.maven.plugin.version>
+
+
+		<!-- Proprieties dirstribuition-->
+		<repository-owner>Arsonist-Cook</repository-owner>
+		<repository-name>test-java</repository-name>
+		<branch-name>repository</branch-name>
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<dependencies>
+		<!-- Added openPDF Dependency -->
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>${open.pfd.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe</groupId>
+			<artifactId>config</artifactId>
+			<version>${typesafe.conf.version}</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>PROJECT-REPO-URL</id>
+			<url>
+				https://github.com/${repository-owner}/${repository-name}/${branch-name}</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven.deploy.plugin.version}</version>
+				<configuration>
+					<altDeploymentRepository>
+						internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
+			<!-- Set a JDK compiler level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- This plugin is needed to create the self contained jar,
+                it means the -jar-with-dependencies.jar that can be executed
+                with java -jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven.assembly.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<archive>
+								<manifest>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>${github.site.maven.plugin.version}</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<path>${project.build.directory}/docs/</path>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<merge>true</merge>
+					<repositoryName>${repository-name}</repositoryName>
+					<repositoryOwner>${repository-owner}</repositoryOwner>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

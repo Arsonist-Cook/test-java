@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.arsonistcook</groupId>
+  <artifactId>pdf-report</artifactId>
+  <versioning>
+    <lastUpdated>20231017122655</lastUpdated>
+    <snapshot>
+      <timestamp>20231017.122655</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.5-20231017.122655-1</value>
+        <updated>20231017122655</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.5-20231017.122655-1</value>
+        <updated>20231017122655</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>jar-with-dependencies</classifier>
+        <extension>jar</extension>
+        <value>0.0.5-20231017.122655-1</value>
+        <updated>20231017122655</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>0.0.5-20231017.122655-1</value>
+        <updated>20231017122655</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>0.0.5-SNAPSHOT</version>
+</metadata>

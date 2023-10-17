@@ -4,8 +4,8 @@
   <artifactId>pdf-report</artifactId>
   <versioning>
     <versions>
-      <version>0.0.4-SNAPSHOT</version>
+      <version>0.0.5-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20230902001435</lastUpdated>
+    <lastUpdated>20231017122655</lastUpdated>
   </versioning>
 </metadata>
